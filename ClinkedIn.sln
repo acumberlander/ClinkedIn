@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinkedIn", "ClinkedIn\ClinkedIn.csproj", "{FD4FC393-4B97-415E-B3C6-65BEA54BA258}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinkedIn2", "ClinkedIn2\ClinkedIn2.csproj", "{C71A79FC-4696-49E1-97D0-F42EE6A5D511}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinkedIn", "ClinkedIn\ClinkedIn.csproj", "{045CD381-6F00-4B9E-9BCC-B65E49628526}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FD4FC393-4B97-415E-B3C6-65BEA54BA258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD4FC393-4B97-415E-B3C6-65BEA54BA258}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD4FC393-4B97-415E-B3C6-65BEA54BA258}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD4FC393-4B97-415E-B3C6-65BEA54BA258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C71A79FC-4696-49E1-97D0-F42EE6A5D511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C71A79FC-4696-49E1-97D0-F42EE6A5D511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C71A79FC-4696-49E1-97D0-F42EE6A5D511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C71A79FC-4696-49E1-97D0-F42EE6A5D511}.Release|Any CPU.Build.0 = Release|Any CPU
+		{045CD381-6F00-4B9E-9BCC-B65E49628526}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{045CD381-6F00-4B9E-9BCC-B65E49628526}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{045CD381-6F00-4B9E-9BCC-B65E49628526}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{045CD381-6F00-4B9E-9BCC-B65E49628526}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
