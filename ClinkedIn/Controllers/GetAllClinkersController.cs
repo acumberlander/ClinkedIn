@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using ClinkedIn.Data;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +23,8 @@ namespace ClinkedIn.Controllers
         [HttpGet("allclinkers")]
         public ActionResult GetAllClinkers()
         {
-            var clinkerList = _clinkerRepository;
+            
+            var clinkerList = _clinkerRepository.GetAllClinkers();
 
             return Created($"api/getAllClinkers", clinkerList);
         }
