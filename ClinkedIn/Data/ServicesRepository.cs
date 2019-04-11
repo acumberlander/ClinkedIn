@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ClinkedIn.Data
 {
-    public class ServicesRepository
+    static class ServicesRepository
     {
-        List<Service> _Services = new List<Service>();
+        static List<Service> _Services = new List<Service>();
 
-        public Service AddServices(string serviceName, int clinker)
+        public static Service AddServices(string serviceName, int clinker)
         {
             var newService = new Service() { ServiceName = serviceName, ClinkerId = clinker};
 

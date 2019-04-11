@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ClinkedIn.Data;
+using ClinkedIn.Models;
 
 namespace ClinkedIn.Controllers
 {
@@ -11,5 +13,12 @@ namespace ClinkedIn.Controllers
     [ApiController]
     public class ServiceController : ControllerBase
     {
+        [HttpPost("addservice")]
+        public ActionResult CreateService(Service service)
+        {
+            var newService = ServicesRepository.AddServices(service.ServiceName, service.ClinkerId);
+
+            return Created($"api/createdService/{newService.Id}", newService);
+        }
     }
 }
