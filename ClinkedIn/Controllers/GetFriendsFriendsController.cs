@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ClinkedIn.Data;
 using ClinkedIn.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinkedIn.Controllers
@@ -13,15 +9,8 @@ namespace ClinkedIn.Controllers
     [ApiController]
     public class GetFriendsFriendsController : ControllerBase
     {
-        //readonly FriendshipRepository _friendshipRepository;
-
-        //public static GetFriendsFriendsController()
-        //{
-        //    FriendshipRepository _friendshipRepository = new FriendshipRepository();
-        //}
-
         [HttpGet("friendsfriends")]
-        public static ActionResult GetFriendsFriends()
+        public ActionResult GetFriendsFriends()
         {
             List<Friendship> friendsOfFriends = FriendshipRepository.GetClinkerFriendsFriends();
 
