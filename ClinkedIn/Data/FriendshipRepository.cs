@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClinkedIn.Data
 {
-    static class FriendshipRepository
+    class FriendshipRepository
     {
         static List<Friendship> _friends = new List<Friendship>();
 
@@ -19,6 +19,14 @@ namespace ClinkedIn.Data
             _friends.Add(newFriendship);
 
             return newFriendship;
+        }
+
+        static Friendship friend = new Friendship();
+        public static List<Friendship> clinkerFriendsFriends = _friends.FindAll(x => friend.Id == friend.ClinkerOneId || friend.Id == friend.ClinkerTwoId);
+
+        public static List<Friendship> GetClinkerFriendsFriends()
+        {
+            return clinkerFriendsFriends;
         }
     }
 }
