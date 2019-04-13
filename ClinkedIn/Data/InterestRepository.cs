@@ -16,7 +16,14 @@ namespace ClinkedIn.Data
 
             newInterest.Id = _interests.Count + 1;
 
+            _interests.Add(newInterest);
+
             return newInterest;
+        }
+
+        public static List<Interest> GetAllInterests()
+        {
+            return _interests;
         }
 
     }

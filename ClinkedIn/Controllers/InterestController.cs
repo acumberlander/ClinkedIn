@@ -23,6 +23,15 @@ namespace ClinkedIn.Controllers
             return Created($"api/createdInterest/{newInterest.Id}", newInterest);
         }
 
+        [HttpGet("allinterests")]
+        public ActionResult GetAllClinkers()
+        {
+
+            var interestList = InterestRepository.GetAllInterests();
+
+            return Created($"api/getAllInterests", interestList);
+        }
+
         [HttpGet("{clinkerId}/findfriends")]
         public ActionResult GetPotentialFriends(int clinkerId)
         {
@@ -37,12 +46,11 @@ namespace ClinkedIn.Controllers
             {
                 foreach(var friendship in yourFriendships)
                 {
-                    if(prisoner.Id != friendship.ClinkerOneId || prisoner.Id != friendship.ClinkerTwoId)
+                    if(prisoner.Id != friendship.ClinkerOneId && prisoner.Id != friendship.ClinkerTwoId)
                     {
                         notYourFriends.Add(prisoner);
                     }
                 }
-                
             }
 
             //find prisoners with simalar interests
@@ -51,7 +59,7 @@ namespace ClinkedIn.Controllers
             foreach(var prisoner in notYourFriends)
             {
                 List<Interest> prisonerInterest = InterestRepository._interests.Where(interest => interest.ClinkerId == prisoner.Id).ToList();
-
+                
                 foreach(var interest in prisonerInterest)
                 {
                     foreach (var clinkerInterest in userInterest)
