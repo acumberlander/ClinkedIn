@@ -1,4 +1,5 @@
 ﻿using ClinkedIn.Models;
+using System;
 using System.Collections.Generic;
 
 namespace ClinkedIn.Data
@@ -7,9 +8,9 @@ namespace ClinkedIn.Data
     {
         public static List<Clinker> _clinkers = new List<Clinker>();
 
-        public Clinker AddClinker(string name, string password)
+        public Clinker AddClinker(string name, string password, DateTime releaseDate)
         {
-            var newClinker = new Clinker(name, password);
+            var newClinker = new Clinker(name, password, releaseDate);
 
             newClinker.Id = _clinkers.Count + 1;
 

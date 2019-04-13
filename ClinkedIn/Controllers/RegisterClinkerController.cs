@@ -26,7 +26,7 @@ namespace ClinkedIn.Controllers
                 return BadRequest(new { error = "users must have a name and password" });
             }
 
-            var newClinker = _clinkerRepository.AddClinker(createRequest.Name, createRequest.Password);
+            var newClinker = _clinkerRepository.AddClinker(createRequest.Name, createRequest.Password, createRequest.ReleaseDate);
 
             return Created($"api/clinkers/{newClinker.Id}", newClinker);
         }

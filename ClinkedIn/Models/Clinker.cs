@@ -12,10 +12,11 @@ namespace ClinkedIn.Models
         public int PrisonId { get; set; }
         public DateTime ReleaseDate { get; set; }
 
-        public Clinker(string name, string password)
+        public Clinker(string name, string password, DateTime releaseDate)
         {
             Name = name;
             Password = password;
+            ReleaseDate = releaseDate;
         }
     }
 }
