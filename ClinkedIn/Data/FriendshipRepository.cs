@@ -6,7 +6,7 @@ namespace ClinkedIn.Data
 {
     class FriendshipRepository
     {
-        static List<Friendship> _friends = new List<Friendship>();
+        public static List<Friendship> _friends = new List<Friendship>();
 
         public static Friendship AddFriendship(int clinkerOneId, int clinkerTwoId)
         {
