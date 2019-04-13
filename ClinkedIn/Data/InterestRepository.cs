@@ -8,7 +8,7 @@ namespace ClinkedIn.Data
 {
     static class InterestRepository
     {
-        static List<Interest> _interests = new List<Interest>();
+        public static List<Interest> _interests = new List<Interest>();
 
         public static Interest AddInterest(string name, int clinkerId)
         {
