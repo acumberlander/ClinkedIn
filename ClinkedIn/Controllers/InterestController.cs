@@ -35,43 +35,7 @@ namespace ClinkedIn.Controllers
         [HttpGet("{clinkerId}/findfriends")]
         public ActionResult GetPotentialFriends(int clinkerId)
         {
-            //filter _interest list by clinkerId.
-            List<Interest> userInterest = InterestRepository._interests.Where(interest => interest.ClinkerId == clinkerId).ToList();
-
-            //separate users who are not your friends.
-            List<Friendship> yourFriendships = FriendshipRepository._friends.Where(friendship => friendship.ClinkerOneId == clinkerId || friendship.ClinkerTwoId == clinkerId).ToList();
-            List<Clinker> notYourFriends = new List<Clinker>();
-
-            foreach (var prisoner in ClinkerRepository._clinkers)
-            {
-                foreach(var friendship in yourFriendships)
-                {
-                    if(prisoner.Id != friendship.ClinkerOneId && prisoner.Id != friendship.ClinkerTwoId)
-                    {
-                        notYourFriends.Add(prisoner);
-                    }
-                }
-            }
-
-            //find prisoners with simalar interests
-            var potentialFriendsList = new List<Clinker>();
-
-            foreach(var prisoner in notYourFriends)
-            {
-                List<Interest> prisonerInterest = InterestRepository._interests.Where(interest => interest.ClinkerId == prisoner.Id).ToList();
-                
-                foreach(var interest in prisonerInterest)
-                {
-                    foreach (var clinkerInterest in userInterest)
-                    {
-                        if (clinkerInterest.Name == interest.Name)
-                        {
-                            potentialFriendsList.Add(prisoner);
-                            break;
-                        }
-                    }
-                }
-            }
+            var potentialFriendsList = ClinkerRepository.FindPotentialFriends(clinkerId);
             
             return Created($"api/getPotentialFriends", potentialFriendsList);
         }
