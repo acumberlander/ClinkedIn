@@ -9,12 +9,20 @@ namespace ClinkedIn.Controllers
     [ApiController]
     public class GetFriendsFriendsController : ControllerBase
     {
-        [HttpGet("friendsfriends")]
-        public ActionResult GetFriendsFriends()
-        {
-            List<Friendship> friendsOfFriends = FriendshipRepository.GetClinkerFriendsFriends();
+        readonly FriendshipRepository _friendshipRepository;
 
-            return Created($"api/getFriendsFriends", friendsOfFriends);
+        public GetFriendsFriendsController()
+        {
+            _friendshipRepository = new FriendshipRepository();
+        }
+
+        [HttpGet("{clinkerId}/friendsfriends")]
+        public ActionResult GetFriendsFriends(int clinkerId)
+        {
+
+            HashSet<Clinker> friendshipList = _friendshipRepository.GetMyFriendsFriends(clinkerId);
+
+            return Created($"api/getFriendsFriends", friendshipList);
         }
     }
 }

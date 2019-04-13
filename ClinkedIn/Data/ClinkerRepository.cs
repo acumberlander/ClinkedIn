@@ -5,7 +5,7 @@ namespace ClinkedIn.Data
 {
     public class ClinkerRepository
     {
-        static List<Clinker> _clinkers = new List<Clinker>();
+        public static List<Clinker> _clinkers = new List<Clinker>();
 
         public Clinker AddClinker(string name, string password)
         {
