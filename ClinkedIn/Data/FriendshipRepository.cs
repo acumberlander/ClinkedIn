@@ -6,11 +6,18 @@ namespace ClinkedIn.Data
 {
     class FriendshipRepository
     {
-        public static List<Friendship> _friends = new List<Friendship>();
+        public static List<Friendship> _friends = new List<Friendship>
+        {
+            new Friendship(1, 2),
+            new Friendship(1, 3),
+            new Friendship(2, 3),
+            new Friendship(2, 4),
+            new Friendship(2, 5)
+        };
 
         public static Friendship AddFriendship(int clinkerOneId, int clinkerTwoId)
         {
-            var newFriendship = new Friendship() { ClinkerOneId = clinkerOneId, ClinkerTwoId = clinkerTwoId };
+            var newFriendship = new Friendship(clinkerOneId, clinkerOneId);
 
             newFriendship.Id = _friends.Count + 1;
 

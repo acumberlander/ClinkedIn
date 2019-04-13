@@ -18,5 +18,13 @@ namespace ClinkedIn.Models
             Password = password;
             ReleaseDate = releaseDate;
         }
+
+        public Clinker(int id, string name, string password, DateTime releaseDate)
+        {
+            Id = id;
+            Name = name;
+            Password = password;
+            ReleaseDate = releaseDate;
+        }
     }
 }
