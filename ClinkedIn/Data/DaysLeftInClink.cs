@@ -8,13 +8,18 @@ namespace ClinkedIn.Data
 {
     public class DaysLeftInClink
     {
-        public double GetDaysLeftInClink(DateTime releaseDate)
+        public string GetDaysLeftInClink(DateTime releaseDate)
         {
             //releaseDate = clinker.ReleaseDate;
             DateTime today = DateTime.Now;
-            double daysLeftInClink = (releaseDate - today).TotalDays;
+            TimeSpan timeLeftInClink = (releaseDate - today);
+            var days = timeLeftInClink.Days.ToString();
+            var hours = timeLeftInClink.Hours.ToString();
+            var mins = timeLeftInClink.Minutes.ToString();
 
-            return daysLeftInClink;
+            var totalTimeLeftInClink = $"{days} days {hours} hours {mins} mins";
+
+            return totalTimeLeftInClink;
         }
     }
 }
