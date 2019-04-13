@@ -14,10 +14,11 @@ namespace ClinkedIn.Models
         public List<int> Interests { get; set; }
         public List<int> Services { get; set; }
 
-        public Clinker(string name, string password)
+        public Clinker(string name, string password, DateTime releaseDate)
         {
             Name = name;
             Password = password;
+            ReleaseDate = releaseDate;
         }
     }
 }
