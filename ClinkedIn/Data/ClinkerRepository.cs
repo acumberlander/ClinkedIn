@@ -1,12 +1,20 @@
 ﻿using ClinkedIn.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ClinkedIn.Data
 {
     public class ClinkerRepository
     {
-        public static List<Clinker> _clinkers = new List<Clinker>();
+        public static List<Clinker> _clinkers = new List<Clinker>
+        {
+            new Clinker(1, "Larry", "larry", new DateTime(2019, 4, 14)),
+            new Clinker(2, "Gerry", "gerry", new DateTime(2065, 5, 4)),
+            new Clinker(3, "Terri", "terri", new DateTime(2099, 2, 21)),
+            new Clinker(4, "Gary", "gary", new DateTime(2056, 8, 10)),
+            new Clinker(5, "Barry", "barry", new DateTime(2045, 6, 11))
+        };
 
         public Clinker AddClinker(string name, string password, DateTime releaseDate)
         {
