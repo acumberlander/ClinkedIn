@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClinkedIn.Data;
-using Microsoft.AspNetCore.Http;
+﻿using ClinkedIn.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinkedIn.Controllers
