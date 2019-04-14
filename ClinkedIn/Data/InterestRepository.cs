@@ -26,5 +26,25 @@ namespace ClinkedIn.Data
             return _interests;
         }
 
+        public static List<Interest> DeleteInterest(int interestId)
+        {
+            var interestToDelete = _interests.First(interest => interest.Id == interestId);
+
+            _interests.Remove(interestToDelete);
+
+            return _interests;
+        }
+
+        public static Interest UpdateInterest(Interest newInterest)
+        {
+            var interestObject = _interests.First(interest => interest.Id == newInterest.Id);
+
+            interestObject.ClinkerId = newInterest.ClinkerId;
+            interestObject.Name = newInterest.Name;
+
+            return interestObject;
+
+        }
+
     }
 }
