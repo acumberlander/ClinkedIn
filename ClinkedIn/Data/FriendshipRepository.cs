@@ -17,7 +17,7 @@ namespace ClinkedIn.Data
 
         public static Friendship AddFriendship(int clinkerOneId, int clinkerTwoId)
         {
-            var newFriendship = new Friendship(clinkerOneId, clinkerOneId);
+            var newFriendship = new Friendship(clinkerOneId, clinkerTwoId);
 
             newFriendship.Id = _friends.Count + 1;
 
