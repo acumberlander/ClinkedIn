@@ -34,6 +34,7 @@ namespace ClinkedIn.Data
             HashSet<int> myFriendsIds = new HashSet<int>();
             HashSet<Clinker> notMyFriends = new HashSet<Clinker>();
             HashSet<Clinker> myFriendsFriends = new HashSet<Clinker>();
+            HashSet<Clinker> possibleFriends = new HashSet<Clinker>();
 
             foreach (var friendship in myFriendships)
             {
@@ -75,17 +76,17 @@ namespace ClinkedIn.Data
                 }
             }
 
-            return myFriendsFriends;
+            foreach (var person in myFriendsFriends)
+            {
+                if (!myFriendsIds.Any(s => s == person.Id))
+                {
+                    possibleFriends.Add(person);
+                }
+            }
+
+            return possibleFriends;
 
         }
 
-        //static Friendship friend = new Friendship();
-
-        //public static List<Friendship> clinkerFriendsFriends = _friends.FindAll(x => friend.Id == friend.ClinkerOneId || friend.Id == friend.ClinkerTwoId);
-
-        //public static List<Friendship> GetClinkerFriendsFriends()
-        //{
-        //    return clinkerFriendsFriends;
-        //}
     }
 }
