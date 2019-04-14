@@ -10,6 +10,7 @@ namespace ClinkedIn.Models
         //Properties
         public int Id { get; set; }
         public string ServiceName { get; set; }
+        public string UpdatedServiceName { get; set; }
         public int ClinkerId { get; set; }
     }
 }
