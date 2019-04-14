@@ -18,7 +18,24 @@ namespace ClinkedIn.Controllers
         {
             var newService = ServicesRepository.AddServices(service.ServiceName, service.ClinkerId);
 
-            return Created($"api/createdService/{newService.Id}", newService);
+            return Created($"api/createdService/", newService);
         }
+
+        [HttpDelete("deleteservice")]
+        public ActionResult DeleteService(Service service)
+        {
+            var listAfterDelete = ServicesRepository.DeleteService(service.ServiceName, service.ClinkerId);
+            
+            return Created($"api/deleteService/", listAfterDelete);
+        }
+
+        [HttpPatch("updateservice")]
+        public ActionResult UpdateService(Service service)
+        {
+            var listAfterUpdate = ServicesRepository.UpdateService(service.ServiceName, service.UpdatedServiceName, service.ClinkerId);
+            
+            return Created($"api/deleteService/", listAfterUpdate);
+        }
+
     }
 }
