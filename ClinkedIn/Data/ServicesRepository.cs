@@ -10,9 +10,9 @@ namespace ClinkedIn.Data
     {
         static List<Service> _Services = new List<Service>();
 
-        public static List<Service> AddServices(string serviceName, int clinker)
+        public static List<Service> AddServices(string serviceName, int clinkerId)
         {
-            var newService = new Service() { ServiceName = serviceName, ClinkerId = clinker};
+            var newService = new Service() { ServiceName = serviceName, ClinkerId = clinkerId};
 
             newService.Id = _Services.Count + 1;
 
@@ -26,6 +26,15 @@ namespace ClinkedIn.Data
             var selectService =_Services.First(x => x.ServiceName == serviceName && x.ClinkerId == clinkerId);
 
             _Services.Remove(selectService);
+
+            return _Services;
+        }
+
+        public static List<Service> UpdateService(string serviceName, string updatedServiceName, int clinkerId)
+        {
+            var selectService =_Services.First(x => x.ServiceName == serviceName && x.ClinkerId == clinkerId);
+
+            selectService.ServiceName = updatedServiceName;
 
             return _Services;
         }
