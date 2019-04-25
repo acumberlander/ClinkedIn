@@ -15,16 +15,32 @@ namespace ClinkedIn.Data
 
         const string ConnectionString = "Server = localhost; Database = ClinkedIn; Trusted_Connection = True;";
 
-        //public static Interest AddInterest(string name, int clinkerId)
-        //{
-            //var newInterest = new Interest() { Name = name, ClinkerId = clinkerId };
+        public static Interests AddInterest(string name)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
 
-            //newInterest.Id = _interests.Count + 1;
+                var insertNewInterestCommand = connection.CreateCommand();
+                insertNewInterestCommand.CommandText = @"Insert into interests (name)
+                                                      Output inserted.*
+                                                      Values(@name)";
 
-            //_interests.Add(newInterest);
+                insertNewInterestCommand.Parameters.AddWithValue("name", name);
 
-            //return newInterest;
-        //}
+                var reader = insertNewInterestCommand.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var InsertedId = (int)reader["Id"];
+                    var InsertedName = reader["Name"].ToString();
+
+                    var newInterest = new Interests() { Id = InsertedId, Name = InsertedName };
+                    return newInterest;
+                }
+            }
+            throw new Exception("No interest found");
+        }
 
         public static List<ClinkerInterests> GetAllClinkerInterests()
         {
