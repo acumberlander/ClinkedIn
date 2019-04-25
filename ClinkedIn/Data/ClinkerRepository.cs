@@ -19,7 +19,13 @@ namespace ClinkedIn.Data
                 var insertClinkerCommand = connection.CreateCommand();
                 insertClinkerCommand.CommandText = $@"Insert into Clinkers(name, password, age, isPrisoner, releaseDate)
                                                         output inserted.*
-                                                        values('{name}', '{password}', '{age}', '{isPrisoner}', '{releaseDate}')";
+                                                        values(@name, @password, @age, @isPrisoner, @releaseDate)";
+
+                insertClinkerCommand.Parameters.AddWithValue("name", name);
+                insertClinkerCommand.Parameters.AddWithValue("password", password);
+                insertClinkerCommand.Parameters.AddWithValue("age", age);
+                insertClinkerCommand.Parameters.AddWithValue("isPrisoner", isPrisoner);
+                insertClinkerCommand.Parameters.AddWithValue("releaseDate", releaseDate);
 
                 var reader = insertClinkerCommand.ExecuteReader();
 
