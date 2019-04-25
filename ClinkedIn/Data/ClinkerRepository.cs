@@ -63,7 +63,7 @@ namespace ClinkedIn.Data
         public static HashSet<Clinker> FindPotentialFriends(int clinkerId)
         {
             //filter _interest list by clinkerId.
-            HashSet<Interest> userInterest = InterestRepository._interests.Where(interest => interest.ClinkerId == clinkerId).ToHashSet();
+            HashSet<Interests> userInterest = InterestRepository._interests.Where(interest => interest.ClinkerId == clinkerId).ToHashSet();
 
             //separate users who are not your friends.
             HashSet<Friendship> yourFriendships = FriendshipRepository._friends.Where(friendship => friendship.ClinkerOneId == clinkerId || friendship.ClinkerTwoId == clinkerId).ToHashSet();
@@ -85,7 +85,7 @@ namespace ClinkedIn.Data
 
             foreach (var prisoner in notYourFriends)
             {
-                List<Interest> prisonerInterest = InterestRepository._interests.Where(interest => interest.ClinkerId == prisoner.Id).ToList();
+                List<Interests> prisonerInterest = InterestRepository._interests.Where(interest => interest.ClinkerId == prisoner.Id).ToList();
 
                 foreach (var interest in prisonerInterest)
                 {
