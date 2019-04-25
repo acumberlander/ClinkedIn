@@ -1,6 +1,7 @@
 ﻿using ClinkedIn.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace ClinkedIn.Data
@@ -9,16 +10,16 @@ namespace ClinkedIn.Data
     {
         public static List<Clinker> _clinkers = new List<Clinker>
         {
-            new Clinker(1, "Larry", "larry", new DateTime(2019, 4, 14)),
-            new Clinker(2, "Gerry", "gerry", new DateTime(2065, 5, 4)),
-            new Clinker(3, "Terri", "terri", new DateTime(2099, 2, 21)),
-            new Clinker(4, "Gary", "gary", new DateTime(2056, 8, 10)),
-            new Clinker(5, "Barry", "barry", new DateTime(2045, 6, 11))
+            new Clinker(1, "Larry", "lardog111", 34, true, new DateTime(2019, 4, 14)),
+            new Clinker(2, "Gary", "garyisthebest", 26, true, new DateTime(2065, 5, 4)),
+            new Clinker(3, "Barry", "theflash420", 54, true, new DateTime(2099, 2, 21)),
+            new Clinker(4, "Jerry", "jhd8434", 19, false, new DateTime(2056, 8, 10)),
+            new Clinker(5, "Perry", "italy293", 27, true, new DateTime(2045, 6, 11))
         };
 
-        public Clinker AddClinker(string name, string password, DateTime releaseDate)
+        public Clinker AddClinker(string name, string password, int age, bool isPrisoner, DateTime releaseDate)
         {
-            var newClinker = new Clinker(name, password, releaseDate);
+            var newClinker = new Clinker(name, password, age, isPrisoner, releaseDate);
 
             newClinker.Id = _clinkers.Count + 1;
 
@@ -30,7 +31,33 @@ namespace ClinkedIn.Data
         //Method to get the clinkers, to be called in the controller
         public List<Clinker> GetAllClinkers()
         {
-            return _clinkers;
+            var clinkers = new List<Clinker>();
+
+            var connection = new SqlConnection("Server=localhost;Database=ClinkedIn;Trusted_Connection=True;");
+            connection.Open();
+
+            var getAllClinkersCommand = connection.CreateCommand();
+            getAllClinkersCommand.CommandText = @"select name,password,id,age,isPrisoner,releaseDate
+                                                    from clinkers";
+
+            var reader = getAllClinkersCommand.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var id = (int)reader["Id"];
+                var name = reader["name"].ToString();
+                var password = reader["password"].ToString();
+                var age = (int)reader["age"];
+                var isPrisoner = (bool)reader["isPrisoner"];
+                var releaseDate = (DateTime)reader["releaseDate"];
+                var clinker = new Clinker(name, password, age, isPrisoner, releaseDate) { Id = id };
+
+                clinkers.Add(clinker);
+            }
+
+            connection.Close();
+
+            return clinkers;
         }
 
         public static HashSet<Clinker> FindPotentialFriends(int clinkerId)
