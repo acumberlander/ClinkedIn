@@ -17,7 +17,7 @@ namespace ClinkedIn.Data
                 connection.Open();
 
                 var insertClinkerCommand = connection.CreateCommand();
-                insertClinkerCommand.CommandText = $@"inserted into Clinkers(name, password, age, isPrisoner, releaseDate)
+                insertClinkerCommand.CommandText = $@"Insert into Clinkers(name, password, age, isPrisoner, releaseDate)
                                                         output inserted.*
                                                         values('{name}', '{password}', '{age}', '{isPrisoner}', '{releaseDate}')";
 
