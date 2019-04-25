@@ -44,10 +44,12 @@ namespace ClinkedIn.Controllers
         //[HttpGet("{clinkerId}/findfriends")]
         //public ActionResult GetPotentialFriends(int clinkerId)
         //{
-        //var potentialFriendsList = ClinkerRepository.FindPotentialFriends(clinkerId);
 
-        //return Created($"api/getPotentialFriends", potentialFriendsList);
+        //    var potentialFriendsList = ClinkerRepository.FindPotentialFriends(clinkerId);
+            
+        //    return Created($"api/getPotentialFriends", potentialFriendsList);
         //}
+
 
         //[HttpDelete("{interestId}/deleteIt")]
         //public ActionResult deleteInterest(int interestId)
