@@ -28,7 +28,7 @@ namespace ClinkedIn.Data
             return newClinker;
         }
 
-        //Method to get the clinkers, to be called in the controller
+        //Method to get the clinkers, to be called in the controllers
         public List<Clinker> GetAllClinkers()
         {
             var clinkers = new List<Clinker>();
