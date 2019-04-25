@@ -15,16 +15,25 @@ namespace ClinkedIn.Controllers
     {
         //static object _interests;
 
-        [HttpPost("addinterest")]
-        public ActionResult CreateInterst(Interest interest)
-        {
-            var newInterest = InterestRepository.AddInterest(interest.Name, interest.ClinkerId);
+        //[HttpPost("addinterest")]
+        //public ActionResult CreateInterst(Interest interest)
+        //{
+            //var newInterest = InterestRepository.AddInterest(interest.Name, interest.ClinkerId);
 
-            return Created($"api/createdInterest/{newInterest.Id}", newInterest);
+            //return Created($"api/createdInterest/{newInterest.Id}", newInterest);
+        //}
+
+        [HttpGet("allclinkerinterests")]
+        public ActionResult GetAllClinkerInterests()
+        {
+
+            var interestList = InterestRepository.GetAllClinkerInterests();
+
+            return Created($"api/getAllClinkerInterests", interestList);
         }
 
         [HttpGet("allinterests")]
-        public ActionResult GetAllClinkers()
+        public ActionResult GetAllInterests()
         {
 
             var interestList = InterestRepository.GetAllInterests();
@@ -32,12 +41,28 @@ namespace ClinkedIn.Controllers
             return Created($"api/getAllInterests", interestList);
         }
 
-        [HttpGet("{clinkerId}/findfriends")]
-        public ActionResult GetPotentialFriends(int clinkerId)
-        {
-            var potentialFriendsList = ClinkerRepository.FindPotentialFriends(clinkerId);
-            
-            return Created($"api/getPotentialFriends", potentialFriendsList);
-        }
+        //[HttpGet("{clinkerId}/findfriends")]
+        //public ActionResult GetPotentialFriends(int clinkerId)
+        //{
+        //var potentialFriendsList = ClinkerRepository.FindPotentialFriends(clinkerId);
+
+        //return Created($"api/getPotentialFriends", potentialFriendsList);
+        //}
+
+        //[HttpDelete("{interestId}/deleteIt")]
+        //public ActionResult deleteInterest(int interestId)
+        //{
+        //var newInterestList = InterestRepository.DeleteInterest(interestId);
+
+        //return Created("api/interestList", newInterestList);
+        //}
+
+        //[HttpPut("updateIt")]
+        //public ActionResult updateInterest(Interest newInterest)
+        //{
+        //var updatedInterestObject = InterestRepository.UpdateInterest(newInterest);
+
+        //return Created("api/updatedInterest", updatedInterestObject);
+        //}
     }
 }

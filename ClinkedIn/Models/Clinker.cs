@@ -9,22 +9,25 @@ namespace ClinkedIn.Models
         public string Name { get; set; }
         public string Password { get; set; }
         public int Age { get; set; }
-        public int PrisonId { get; set; }
         public bool IsPrisoner { get; set; }
         public DateTime ReleaseDate { get; set; }
 
-        public Clinker(string name, string password, DateTime releaseDate)
+        public Clinker(string name, string password, int age, bool isPrisoner, DateTime releaseDate)
         {
             Name = name;
             Password = password;
+            Age = age;
+            IsPrisoner = isPrisoner;
             ReleaseDate = releaseDate;
         }
 
-        public Clinker(int id, string name, string password, DateTime releaseDate)
+        public Clinker(int id, string name, string password, int age, bool isPrisoner, DateTime releaseDate)
         {
             Id = id;
             Name = name;
             Password = password;
+            Age = age;
+            IsPrisoner = IsPrisoner;
             ReleaseDate = releaseDate;
         }
     }
