@@ -10,6 +10,7 @@ namespace ClinkedIn.Models
         public string Password { get; set; }
         public int Age { get; set; }
         public int PrisonId { get; set; }
+        public bool IsPrisoner { get; set; }
         public DateTime ReleaseDate { get; set; }
 
         public Clinker(string name, string password, DateTime releaseDate)
