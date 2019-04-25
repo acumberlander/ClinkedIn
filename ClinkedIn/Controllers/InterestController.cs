@@ -32,13 +32,13 @@ namespace ClinkedIn.Controllers
             return Created($"api/getAllInterests", interestList);
         }
 
-        [HttpGet("{clinkerId}/findfriends")]
-        public ActionResult GetPotentialFriends(int clinkerId)
-        {
-            var potentialFriendsList = ClinkerRepository.FindPotentialFriends(clinkerId);
+        //[HttpGet("{clinkerId}/findfriends")]
+        //public ActionResult GetPotentialFriends(int clinkerId)
+        //{
+        //    var potentialFriendsList = ClinkerRepository.FindPotentialFriends(clinkerId);
             
-            return Created($"api/getPotentialFriends", potentialFriendsList);
-        }
+        //    return Created($"api/getPotentialFriends", potentialFriendsList);
+        //}
 
         [HttpDelete("{interestId}/deleteIt")]
         public ActionResult deleteInterest(int interestId)
