@@ -58,7 +58,7 @@ namespace ClinkedIn.Data
                     var description = reader["Description"].ToString();
                     var price = (decimal)reader["Price"];
 
-                    var newService = new Services() { Id = id, ServiceName = serviceName };
+                    var newService = new Services() { Id = id, ServiceName = serviceName, Description = description, Price = price };
                     _services.Add(newService);
                 }
             }
