@@ -15,7 +15,7 @@ namespace ClinkedIn.Data
 
         const string ConnectionString = "Server = localhost; Database = ClinkedIn; Trusted_Connection = True;";
 
-        public static Interests AddInterest(string name)
+        public static Interests AddInterest(Interests interestObject)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
@@ -26,7 +26,7 @@ namespace ClinkedIn.Data
                                                       Output inserted.*
                                                       Values(@name)";
 
-                insertNewInterestCommand.Parameters.AddWithValue("name", name);
+                insertNewInterestCommand.Parameters.AddWithValue("name", interestObject.Name);
 
                 var reader = insertNewInterestCommand.ExecuteReader();
 

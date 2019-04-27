@@ -16,9 +16,9 @@ namespace ClinkedIn.Controllers
         //static object _interests;
 
         [HttpPost("addinterest")]
-        public ActionResult CreateInterest(string interestName)
+        public ActionResult CreateInterest(Interests interestObject)
         {
-            var newInterest = InterestRepository.AddInterest(interestName);
+            var newInterest = InterestRepository.AddInterest(interestObject);
 
             return Created($"api/createdInterest/{newInterest.Id}", newInterest);
         }
