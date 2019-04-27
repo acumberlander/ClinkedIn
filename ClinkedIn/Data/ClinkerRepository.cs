@@ -10,7 +10,7 @@ namespace ClinkedIn.Data
     {
         const string ConnectionString = "Server=localhost;Database=ClinkedIn;Trusted_Connection=True;";
 
-        //Add Clinker
+        // Add Clinker
         public Clinker AddClinker(string name, string password, int age, bool isPrisoner, DateTime releaseDate)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -116,6 +116,28 @@ namespace ClinkedIn.Data
 
             return interestsList;
         }
-            
+        
+        // Delete Clinker
+        public List<Clinker> DeleteClinker(int clinkerId)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var deleteClinkerCommand = connection.CreateCommand();
+
+                
+
+                deleteClinkerCommand.CommandText = @"Delete from clinkers
+                                                     where Id = @clinkerId";
+
+                deleteClinkerCommand.Parameters.AddWithValue("clinkerId", clinkerId);
+
+                deleteClinkerCommand.ExecuteNonQuery();
+            }
+
+            var getAllClinkersAgain = GetAllClinkers();
+            return getAllClinkersAgain;
+        }
     }
 }
