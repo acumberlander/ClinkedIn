@@ -15,13 +15,21 @@ namespace ClinkedIn.Controllers
     {
         //static object _interests;
 
-        //[HttpPost("addinterest")]
-        //public ActionResult CreateInterst(Interest interest)
-        //{
-            //var newInterest = InterestRepository.AddInterest(interest.Name, interest.ClinkerId);
+        [HttpPost("addinterest")]
+        public ActionResult CreateInterest(Interests interestObject)
+        {
+            var newInterest = InterestRepository.AddInterest(interestObject);
 
-            //return Created($"api/createdInterest/{newInterest.Id}", newInterest);
-        //}
+            return Created($"api/createdInterest/{newInterest.Id}", newInterest);
+        }
+
+        [HttpPost("addclinkerinterest")]
+        public ActionResult CreateClinkerInterest(ClinkerInterests clinkerInterestObject)
+        {
+            var newClinkerInterest = InterestRepository.AddClinkerInterest(clinkerInterestObject);
+
+            return Created($"api/createdInterest/{newClinkerInterest.Id}", newClinkerInterest);
+        }
 
         [HttpGet("allclinkerinterests")]
         public ActionResult GetAllClinkerInterests()

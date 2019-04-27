@@ -15,16 +15,61 @@ namespace ClinkedIn.Data
 
         const string ConnectionString = "Server = localhost; Database = ClinkedIn; Trusted_Connection = True;";
 
-        //public static Interest AddInterest(string name, int clinkerId)
-        //{
-            //var newInterest = new Interest() { Name = name, ClinkerId = clinkerId };
+        public static Interests AddInterest(Interests interestObject)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
 
-            //newInterest.Id = _interests.Count + 1;
+                var insertInterestCommand = connection.CreateCommand();
+                insertInterestCommand.CommandText = @"Insert into interests (name)
+                                                      Output inserted.*
+                                                      Values(@name)";
 
-            //_interests.Add(newInterest);
+                insertInterestCommand.Parameters.AddWithValue("name", interestObject.Name);
 
-            //return newInterest;
-        //}
+                var reader = insertInterestCommand.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var InsertedId = (int)reader["Id"];
+                    var InsertedName = reader["Name"].ToString();
+
+                    var newInterest = new Interests() { Id = InsertedId, Name = InsertedName };
+                    return newInterest;
+                }
+            }
+            throw new Exception("No interest found");
+        }
+
+        public static ClinkerInterests AddClinkerInterest(ClinkerInterests clinkerInterestObject)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var insertClinkerInterestCommand = connection.CreateCommand();
+                insertClinkerInterestCommand.CommandText = @"Insert into clinkerinterests (interestId, clinkerId)
+                                                      Output inserted.*
+                                                      Values(@interestId, @clinkerId)";
+
+                insertClinkerInterestCommand.Parameters.AddWithValue("interestId", clinkerInterestObject.InterestId);
+                insertClinkerInterestCommand.Parameters.AddWithValue("clinkerId", clinkerInterestObject.ClinkerId);
+
+                var reader = insertClinkerInterestCommand.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var InsertedId = (int)reader["Id"];
+                    var InsertedInterestId = (int)reader["InterestId"];
+                    var InsertedClinkerId = (int)reader["ClinkerId"];
+
+                    var newClinkerInterest = new ClinkerInterests() { Id = InsertedId, InterestId = InsertedInterestId, ClinkerId = InsertedClinkerId };
+                    return newClinkerInterest;
+                }
+            }
+            throw new Exception("No clinker interest found");
+        }
 
         public static List<ClinkerInterests> GetAllClinkerInterests()
         {
