@@ -65,6 +65,24 @@ namespace ClinkedIn.Controllers
             return Created("api/clinkerInterestList", newClinkerInterestList);
         }
 
+        [HttpPut("updateInterest")]
+        public ActionResult updateInterest(Interests newInterest)
+        {
+            var updatedInterestObject = InterestRepository.UpdateInterest(newInterest);
+
+            return Created("api/updatedInterest", updatedInterestObject);
+        }
+
+        [HttpPut("updateClinkerInterest")]
+        public ActionResult updateClinkerInterest(ClinkerInterests newClinkerInterest)
+        {
+            var updatedClinkerInterestObject = InterestRepository.UpdateClinkerInterest(newClinkerInterest);
+
+            return Created("api/updatedClinkerInterest", updatedClinkerInterestObject);
+        }
+
+
+
         //[HttpGet("{clinkerId}/findfriends")]
         //public ActionResult GetPotentialFriends(int clinkerId)
         //{
@@ -72,17 +90,6 @@ namespace ClinkedIn.Controllers
         //    var potentialFriendsList = ClinkerRepository.FindPotentialFriends(clinkerId);
 
         //    return Created($"api/getPotentialFriends", potentialFriendsList);
-        //}
-
-
-
-
-        //[HttpPut("updateIt")]
-        //public ActionResult updateInterest(Interest newInterest)
-        //{
-        //var updatedInterestObject = InterestRepository.UpdateInterest(newInterest);
-
-        //return Created("api/updatedInterest", updatedInterestObject);
         //}
     }
 }
