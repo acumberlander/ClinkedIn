@@ -49,23 +49,33 @@ namespace ClinkedIn.Controllers
             return Created($"api/getAllInterests", interestList);
         }
 
+        [HttpDelete("{interestId}/deleteInterest")]
+        public ActionResult deleteInterest(int interestId)
+        {
+        var newInterestList = InterestRepository.DeleteInterest(interestId);
+
+        return Created("api/interestList", newInterestList);
+        }
+
+        [HttpDelete("{clinkerInterestId}/deleteClinkerInterest")]
+        public ActionResult deleteClinkerInterest(int clinkerInterestId)
+        {
+            var newClinkerInterestList = InterestRepository.DeleteClinkerInterest(clinkerInterestId);
+
+            return Created("api/clinkerInterestList", newClinkerInterestList);
+        }
+
         //[HttpGet("{clinkerId}/findfriends")]
         //public ActionResult GetPotentialFriends(int clinkerId)
         //{
 
         //    var potentialFriendsList = ClinkerRepository.FindPotentialFriends(clinkerId);
-            
+
         //    return Created($"api/getPotentialFriends", potentialFriendsList);
         //}
 
 
-        //[HttpDelete("{interestId}/deleteIt")]
-        //public ActionResult deleteInterest(int interestId)
-        //{
-        //var newInterestList = InterestRepository.DeleteInterest(interestId);
 
-        //return Created("api/interestList", newInterestList);
-        //}
 
         //[HttpPut("updateIt")]
         //public ActionResult updateInterest(Interest newInterest)

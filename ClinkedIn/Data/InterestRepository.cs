@@ -1,4 +1,5 @@
 ﻿using ClinkedIn.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,7 +10,7 @@ namespace ClinkedIn.Data
 {
     static class InterestRepository
     {
-        public static List<ClinkerInterests> _ClinkerInterests = new List<ClinkerInterests>();
+        public static List<ClinkerInterests> _clinkerInterests = new List<ClinkerInterests>();
 
         public static List<Interests> _interests = new List<Interests>();
 
@@ -73,6 +74,8 @@ namespace ClinkedIn.Data
 
         public static List<ClinkerInterests> GetAllClinkerInterests()
         {
+            _clinkerInterests = new List<ClinkerInterests>();
+
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
@@ -89,15 +92,17 @@ namespace ClinkedIn.Data
                     var interestId = (int)reader["InterestId"];
 
                     var newClinkerInterest = new ClinkerInterests() { Id = id, ClinkerId = clinkerId, InterestId = interestId };
-                    _ClinkerInterests.Add(newClinkerInterest);
+                    _clinkerInterests.Add(newClinkerInterest);
                 }
             }
 
-            return _ClinkerInterests;
+            return _clinkerInterests;
         }
 
         public static List<Interests> GetAllInterests()
         {
+            _interests = new List<Interests>();
+
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
@@ -121,14 +126,43 @@ namespace ClinkedIn.Data
             return _interests;
         }
 
-        //public static List<Interest> DeleteInterest(int interestId)
-        //{
-        //var interestToDelete = _interests.First(interest => interest.Id == interestId);
+        public static List<Interests> DeleteInterest(int interestId)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
 
-        //_interests.Remove(interestToDelete);
+                var deleteInterestCommand = connection.CreateCommand();
+                deleteInterestCommand.CommandText = @"Delete from interests
+                                                    where Id = @interestId";
 
-        //return _interests;
-        // }
+                deleteInterestCommand.Parameters.AddWithValue("interestId", interestId);
+
+                deleteInterestCommand.ExecuteNonQuery();
+            }
+
+            var getAllInterestsList = GetAllInterests();
+            return getAllInterestsList;
+        }
+
+        public static List<ClinkerInterests> DeleteClinkerInterest(int clinkerInterestId)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var deleteClinkerInterestCommand = connection.CreateCommand();
+                deleteClinkerInterestCommand.CommandText = @"Delete from ClinkerInterests
+                                                    where Id = @clinkerInterestId";
+
+                deleteClinkerInterestCommand.Parameters.AddWithValue("clinkerInterestId", clinkerInterestId);
+
+                deleteClinkerInterestCommand.ExecuteNonQuery();
+            }
+
+            var getAllClinkerInterestsList = GetAllClinkerInterests();
+            return getAllClinkerInterestsList;
+        }
 
         //public static Interest UpdateInterest(Interest newInterest)
         //{
