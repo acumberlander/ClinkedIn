@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace ClinkedIn.Models
 {
-    public class Service
+    public class Services
     {
         //Properties
         public int Id { get; set; }
         public string ServiceName { get; set; }
-        public string UpdatedServiceName { get; set; }
-        public int ClinkerId { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
     }
 }

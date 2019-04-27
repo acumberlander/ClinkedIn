@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using ClinkedIn.Data;
 using Microsoft.AspNetCore.Mvc;
-using ClinkedIn.Data;
-using ClinkedIn.Models;
 
 namespace ClinkedIn.Controllers
 {
@@ -13,29 +7,20 @@ namespace ClinkedIn.Controllers
     [ApiController]
     public class ServiceController : ControllerBase
     {
-        [HttpPost("addservice")]
-        public ActionResult CreateService(Service service)
+        [HttpGet("allclinkerservices")]
+        public ActionResult GetAllClinkerServices()
         {
-            var newService = ServicesRepository.AddServices(service.ServiceName, service.ClinkerId);
+            var serviceList = ServiceRepository.GetAllClinkerServices();
 
-            return Created($"api/createdService/", newService);
+            return Created($"api/getAllClinkerServices", serviceList);
         }
 
-        [HttpDelete("deleteservice")]
-        public ActionResult DeleteService(Service service)
+        [HttpGet("allservices")]
+        public ActionResult GetAllServices()
         {
-            var listAfterDelete = ServicesRepository.DeleteService(service.ServiceName, service.ClinkerId);
-            
-            return Created($"api/deleteService/", listAfterDelete);
-        }
+            var serviceList = ServiceRepository.GetAllServices();
 
-        [HttpPatch("updateservice")]
-        public ActionResult UpdateService(Service service)
-        {
-            var listAfterUpdate = ServicesRepository.UpdateService(service.ServiceName, service.UpdatedServiceName, service.ClinkerId);
-            
-            return Created($"api/deleteService/", listAfterUpdate);
+            return Created($"api/getAllServices", serviceList);
         }
-
     }
 }
