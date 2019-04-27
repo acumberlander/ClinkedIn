@@ -1,42 +1,68 @@
 ﻿using ClinkedIn.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace ClinkedIn.Data
 {
-    static class ServicesRepository
+    static class ServiceRepository
     {
-        static List<Service> _Services = new List<Service>();
+        public static List<ClinkerServices> _ClinkerServices = new List<ClinkerServices>();
 
-        public static List<Service> AddServices(string serviceName, int clinkerId)
+        public static List<Services> _services = new List<Services>();
+
+        const string ConnectionString = "Server = localhost; Database = ClinkedIn; Trusted_Connection = True;";
+
+        public static List<ClinkerServices> GetAllClinkerServices()
         {
-            var newService = new Service() { ServiceName = serviceName, ClinkerId = clinkerId};
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
 
-            newService.Id = _Services.Count + 1;
+                var getAllClinkerServicesCommand = connection.CreateCommand();
+                getAllClinkerServicesCommand.CommandText = @"select cs.Id, cs.ClinkerId, cs.ServiceId 
+                                                             from clinkerServices cs";
 
-            _Services.Add(newService);
+                var reader = getAllClinkerServicesCommand.ExecuteReader();
 
-            return _Services;
+                while (reader.Read())
+                {
+                    var id = (int)reader["Id"];
+                    var clinkerId = (int)reader["ClinkerId"];
+                    var serviceId = (int)reader["ServiceId"];
+
+                    var newClinkerService = new ClinkerServices() { Id = id, ClinkerId = clinkerId, ServiceId = serviceId };
+                    _ClinkerServices.Add(newClinkerService);
+                }
+            }
+
+            return _ClinkerServices;
         }
 
-        public static List<Service> DeleteService(string serviceName, int clinkerId)
+        public static List<Services> GetAllServices()
         {
-            var selectService =_Services.First(x => x.ServiceName == serviceName && x.ClinkerId == clinkerId);
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
 
-            _Services.Remove(selectService);
+                var getAllServicesCommand = connection.CreateCommand();
 
-            return _Services;
-        }
+                getAllServicesCommand.CommandText = @"select s.Id, s.ServiceName, s.Description, s.Price
+                                                      from services s";
 
-        public static List<Service> UpdateService(string serviceName, string updatedServiceName, int clinkerId)
-        {
-            var selectService =_Services.First(x => x.ServiceName == serviceName && x.ClinkerId == clinkerId);
+                var reader = getAllServicesCommand.ExecuteReader();
 
-            selectService.ServiceName = updatedServiceName;
+                while (reader.Read())
+                {
+                    var id = (int)reader["Id"];
+                    var serviceName = reader["ServiceName"].ToString();
+                    var description = reader["Description"].ToString();
+                    var price = (decimal)reader["Price"];
 
-            return _Services;
+                    var newService = new Services() { Id = id, ServiceName = serviceName, Description = description, Price = price };
+                    _services.Add(newService);
+                }
+            }
+            return _services;
         }
     }
 }
