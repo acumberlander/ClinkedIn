@@ -10,6 +10,7 @@ namespace ClinkedIn.Data
     {
         const string ConnectionString = "Server=localhost;Database=ClinkedIn;Trusted_Connection=True;";
 
+        //Add Clinker
         public Clinker AddClinker(string name, string password, int age, bool isPrisoner, DateTime releaseDate)
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -46,6 +47,7 @@ namespace ClinkedIn.Data
             throw new Exception("No clinker found");
         }
 
+        // Get All Clinkers
         public List<Clinker> GetAllClinkers()
         {
             var clinkers = new List<Clinker>();
@@ -74,50 +76,46 @@ namespace ClinkedIn.Data
 
             connection.Close();
 
+            foreach (Clinker clinker in clinkers)
+            {
+                clinker.Interests = getClinkerInterests(clinker.Id);
+            }
+
             return clinkers;
         }
 
-        //public static HashSet<Clinker> FindPotentialFriends(int clinkerId)
-        //{
-        //    //filter _interest list by clinkerId.
-        //    HashSet<Interests> userInterest = InterestRepository._interests.Where(interest => interest.ClinkerId == clinkerId).ToHashSet();
+        // Get the interests for each clinker
+        public List<String> getClinkerInterests(int clinkerId)
+        {
+            var interestsList = new List<string>();
 
-        //    //separate users who are not your friends.
-        //    HashSet<Friendship> yourFriendships = FriendshipRepository._friends.Where(friendship => friendship.ClinkerOneId == clinkerId || friendship.ClinkerTwoId == clinkerId).ToHashSet();
-        //    HashSet<Clinker> notYourFriends = new HashSet<Clinker>();
+            var connection = new SqlConnection(ConnectionString);
+            connection.Open();
 
-        //    foreach (var prisoner in _clinkers)
-        //    {
-        //        foreach (var friendship in yourFriendships)
-        //        {
-        //            if (prisoner.Id != friendship.ClinkerOneId && prisoner.Id != friendship.ClinkerTwoId)
-        //            {
-        //                notYourFriends.Add(prisoner);
-        //            }
-        //        }
-        //    }
+            var getClinkerWithInterestsCommand = connection.CreateCommand();
 
-        //    //find prisoners with simalar interests
-        //    var potentialFriendsList = new HashSet<Clinker>();
+            getClinkerWithInterestsCommand.Parameters.AddWithValue("@clinkerId", clinkerId);
 
-        //    foreach (var prisoner in notYourFriends)
-        //    {
-        //        List<Interests> prisonerInterest = InterestRepository._interests.Where(interest => interest.ClinkerId == prisoner.Id).ToList();
+            getClinkerWithInterestsCommand.CommandText = @"select i.Name
+                                                         from Interests i
+                                                         join ClinkerInterests ci
+                                                         on ci.InterestId = i.Id
+                                                         where ci.ClinkerId = @clinkerId";
 
-        //        foreach (var interest in prisonerInterest)
-        //        {
-        //            foreach (var clinkerInterest in userInterest)
-        //            {
-        //                if (clinkerInterest.Name == interest.Name)
-        //                {
-        //                    potentialFriendsList.Add(prisoner);
-        //                    break;
-        //                }
-        //            }
-        //        }
-        //    }
 
-        //    return potentialFriendsList;
-        //}
+            var reader = getClinkerWithInterestsCommand.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var name = reader["name"].ToString();
+
+                interestsList.Add(name);
+            }
+
+            connection.Close();
+
+            return interestsList;
+        }
+            
     }
 }
