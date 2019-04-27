@@ -21,14 +21,5 @@ namespace ClinkedIn.Models
             ReleaseDate = releaseDate;
         }
 
-        public Clinker(int id, string name, string password, int age, bool isPrisoner, DateTime releaseDate)
-        {
-            Id = id;
-            Name = name;
-            Password = password;
-            Age = age;
-            IsPrisoner = IsPrisoner;
-            ReleaseDate = releaseDate;
-        }
     }
 }
