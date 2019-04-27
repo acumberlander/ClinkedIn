@@ -164,16 +164,111 @@ namespace ClinkedIn.Data
             return getAllClinkerInterestsList;
         }
 
-        //public static Interest UpdateInterest(Interest newInterest)
-        //{
-        //var interestObject = _interests.First(interest => interest.Id == newInterest.Id);
+        public static Interests UpdateInterest(Interests newInterest)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
 
-        //interestObject.ClinkerId = newInterest.ClinkerId;
-        //interestObject.Name = newInterest.Name;
+                var updateInterestCommand = connection.CreateCommand();
+                updateInterestCommand.CommandText = @"Update Interests
+                                                            set Name = @name
+                                                            where id = @interestId";
 
-        //return interestObject;
+                updateInterestCommand.Parameters.AddWithValue("interestId", newInterest.Id);
+                updateInterestCommand.Parameters.AddWithValue("name", newInterest.Name);
 
-        //}
+                updateInterestCommand.ExecuteNonQuery();
+
+                var updatedInterestObject = GetInterestById(newInterest.Id);
+
+                return updatedInterestObject;
+
+            }
+            throw new Exception("No clinker interest found");
+        }
+
+        public static Interests GetInterestById(int interestId)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var getInterestCommand = connection.CreateCommand();
+                getInterestCommand.CommandText = @"select i.Id, i.Name
+                                                      from interests i
+                                                      where i.Id = @interestId";
+
+                getInterestCommand.Parameters.AddWithValue("interestId", interestId);
+
+                var reader = getInterestCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var id = (int)reader["Id"];
+                    var interestName = reader["Name"].ToString();
+
+                    var newInterest = new Interests() { Id = id, Name = interestName };
+                    return newInterest;
+                }
+
+                throw new Exception("Interest not found");
+            }
+        }
+
+        public static ClinkerInterests UpdateClinkerInterest(ClinkerInterests newClinkerInterest)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var updateClinkerInterestCommand = connection.CreateCommand();
+                updateClinkerInterestCommand.CommandText = @"Update ClinkerInterests
+                                                            set clinkerId = @clinkerId, interestId = @interestId
+                                                            where id = @clinkerInterestId";
+                
+                updateClinkerInterestCommand.Parameters.AddWithValue("interestId", newClinkerInterest.InterestId);
+                updateClinkerInterestCommand.Parameters.AddWithValue("clinkerId", newClinkerInterest.ClinkerId);
+                updateClinkerInterestCommand.Parameters.AddWithValue("clinkerInterestId", newClinkerInterest.Id);
+
+                updateClinkerInterestCommand.ExecuteNonQuery();
+
+                var updatedClinkerInterestObject = GetClinkerInterestById(newClinkerInterest.Id);
+
+                return updatedClinkerInterestObject;
+
+            }
+            throw new Exception("No clinker interest found");
+        }
+
+        public static ClinkerInterests GetClinkerInterestById(int clinkerInterestId)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var getClinkerInterestCommand = connection.CreateCommand();
+                getClinkerInterestCommand.CommandText = @"select ci.Id, ci.ClinkerId, ci.InterestId
+                                                      from ClinkerInterests ci
+                                                      where ci.Id = @clinkerInterestId";
+
+                getClinkerInterestCommand.Parameters.AddWithValue("clinkerInterestId", clinkerInterestId);
+
+                var reader = getClinkerInterestCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var id = (int)reader["Id"];
+                    var interestId = (int)reader["InterestId"];
+                    var clinkerId = (int)reader["ClinkerId"];
+
+                    var newClinkerInterest = new ClinkerInterests() { Id = id, ClinkerId = clinkerId, InterestId = interestId };
+                    return newClinkerInterest;
+                }
+
+                throw new Exception("Interest not found");
+            }
+        }
 
     }
 }
