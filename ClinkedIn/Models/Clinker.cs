@@ -11,6 +11,7 @@ namespace ClinkedIn.Models
         public int Age { get; set; }
         public bool IsPrisoner { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public List<string> Interests { get; set; }
 
         public Clinker(string name, string password, int age, bool isPrisoner, DateTime releaseDate)
         {
@@ -19,6 +20,16 @@ namespace ClinkedIn.Models
             Age = age;
             IsPrisoner = isPrisoner;
             ReleaseDate = releaseDate;
+        }
+
+        public Clinker(string name, string password, int age, bool isPrisoner, DateTime releaseDate, List<string> interests)
+        {
+            Name = name;
+            Password = password;
+            Age = age;
+            IsPrisoner = isPrisoner;
+            ReleaseDate = releaseDate;
+            Interests = interests;
         }
 
     }
