@@ -38,6 +38,14 @@ namespace ClinkedIn.Controllers
 
             return Ok(clinkers);
         }
+
+        [HttpDelete("{clinkerId}/deleteClinker")]
+        public ActionResult deleteClinker(int clinkerId)
+        {
+            var newClinkerList = _clinkerRepository.DeleteClinker(clinkerId);
+
+            return Created("api/clinkers", newClinkerList);
+        }
     }
 
 }
