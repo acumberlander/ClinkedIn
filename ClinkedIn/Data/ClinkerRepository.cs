@@ -116,7 +116,7 @@ namespace ClinkedIn.Data
 
             return interestsList;
         }
-        
+
         // Delete Clinker
         public List<Clinker> DeleteClinker(int clinkerId)
         {
@@ -126,7 +126,6 @@ namespace ClinkedIn.Data
 
                 var deleteClinkerCommand = connection.CreateCommand();
 
-                
 
                 deleteClinkerCommand.CommandText = @"Delete from clinkers
                                                      where Id = @clinkerId";
@@ -138,6 +137,45 @@ namespace ClinkedIn.Data
 
             var getAllClinkersAgain = GetAllClinkers();
             return getAllClinkersAgain;
+        }
+
+        // Update Clinker
+        public bool UpdateClinker(int clinkerId, string name, string password, int age, bool isPrisoner, DateTime releaseDate)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var updateClinkerCommand = connection.CreateCommand();
+
+                updateClinkerCommand.Parameters.AddWithValue("@clinkerId", clinkerId);
+
+                updateClinkerCommand.CommandText = @"update clinkers
+                                                     set name = @name,
+                                                     password = @password,
+                                                     age = @age,
+                                                     isPrisoner = @isPrisoner,
+                                                     releaseDate = @releaseDate
+                                                     where id = @clinkerId";
+                
+                updateClinkerCommand.Parameters.AddWithValue("name", name);
+                updateClinkerCommand.Parameters.AddWithValue("password", password);
+                updateClinkerCommand.Parameters.AddWithValue("age", age);
+                updateClinkerCommand.Parameters.AddWithValue("isPrisoner", isPrisoner);
+                updateClinkerCommand.Parameters.AddWithValue("releaseDate", releaseDate);
+
+                var numberOfRowsUpdated = updateClinkerCommand.ExecuteNonQuery();
+
+                connection.Close();
+
+                if(numberOfRowsUpdated > 0)
+                {
+                    return true;
+                }
+                return false;
+
+            }
+
         }
     }
 }

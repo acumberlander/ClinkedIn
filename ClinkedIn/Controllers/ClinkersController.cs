@@ -17,10 +17,10 @@ namespace ClinkedIn.Controllers
             _clinkerRepository = new ClinkerRepository();
         }
 
+        // Register new clinker
         [HttpPost("register")]
         public ActionResult AddClinker(CreateClinkerRequest createRequest)
         {
-            //validation
             if (_validator.Validate(createRequest))
             {
                 return BadRequest(new { error = "users must have a name and password" });
@@ -31,6 +31,7 @@ namespace ClinkedIn.Controllers
             return Created($"api/clinkers/{newClinker.Id}", newClinker);
         }
 
+        // Get all clinkers
         [HttpGet]
         public ActionResult GetAllClinkers()
         {
@@ -39,12 +40,32 @@ namespace ClinkedIn.Controllers
             return Ok(clinkers);
         }
 
+        // Delete a clinker
         [HttpDelete("{clinkerId}/deleteClinker")]
         public ActionResult deleteClinker(int clinkerId)
         {
             var newClinkerList = _clinkerRepository.DeleteClinker(clinkerId);
 
             return Created("api/clinkers", newClinkerList);
+        }
+
+        // Update a clinker
+        [HttpPut("{clinkerId}/updateClinker")]
+        public ActionResult updateClinker(int clinkerId, UpdateClinkerRequest updateRequest)
+        {
+            var updatedClinker = _clinkerRepository.UpdateClinker
+                (clinkerId, 
+                updateRequest.Name, 
+                updateRequest.Password, 
+                updateRequest.Age, 
+                updateRequest.IsPrisoner, 
+                updateRequest.ReleaseDate);
+
+            if (updatedClinker)
+            {
+                return Ok();
+            }
+            return NotFound();
         }
     }
 
